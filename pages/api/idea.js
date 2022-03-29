@@ -3,7 +3,7 @@ export default function handler(req, res) {
   const { user_id, text, trigger_id } = req.body;
   res.status(200).json({
     trigger_id: trigger_id,
-    iew: JSON.stringify({
+    view: JSON.stringify({
       type: "modal",
       title: {
         type: "plain_text",
