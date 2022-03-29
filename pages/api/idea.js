@@ -7,7 +7,7 @@ export default async function handler(req, res) {
   const payload = {
     token: "Uxv7HcwJhGCBO5Kz51iEMzVq",
     trigger_id: trigger_id,
-    view: JSON.stringify({
+    view: {
       type: "modal",
       title: {
         type: "plain_text",
@@ -86,7 +86,7 @@ export default async function handler(req, res) {
           optional: true,
         },
       ],
-    }),
+    },
   };
   const result = await axios.post(
     `https://slack.com/api/views.open`,
