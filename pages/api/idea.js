@@ -1,7 +1,11 @@
-export default function handler(req, res) {
+import axios from "axios";
+import qs from "querystring";
+
+export default async function handler(req, res) {
   console.log(req);
   const { user_id, text, trigger_id } = req.body;
-  res.status(200).json({
+  const payload = {
+    token: "Uxv7HcwJhGCBO5Kz51iEMzVq",
     trigger_id: trigger_id,
     view: JSON.stringify({
       type: "modal",
@@ -83,5 +87,11 @@ export default function handler(req, res) {
         },
       ],
     }),
-  });
+  };
+  const result = await axios.post(
+    `https://slack.com/api/views.open`,
+    JSON.stringify(payload)
+  );
+  console.log(result);
+  res.status(200).json({ text: "Opening a form!" });
 }
