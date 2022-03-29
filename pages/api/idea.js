@@ -3,31 +3,85 @@ export default function handler(req, res) {
   const { user_id, text, trigger_id } = req.body;
   res.status(200).json({
     trigger_id: trigger_id,
-    view: {
+    iew: JSON.stringify({
       type: "modal",
-      callback_id: "modal-identifier",
       title: {
         type: "plain_text",
-        text: "Just a modal",
+        text: "Submit a helpdesk ticket",
+      },
+      callback_id: "submit-ticket",
+      submit: {
+        type: "plain_text",
+        text: "Submit",
       },
       blocks: [
         {
-          type: "section",
-          block_id: "section-identifier",
-          text: {
-            type: "mrkdwn",
-            text: "*Welcome* to ~my~ Block Kit _modal_!",
+          block_id: "title_block",
+          type: "input",
+          label: {
+            type: "plain_text",
+            text: "Title",
           },
-          accessory: {
-            type: "button",
-            text: {
-              type: "plain_text",
-              text: "Just a button",
-            },
-            action_id: "button-identifier",
+          element: {
+            action_id: "title",
+            type: "plain_text_input",
+          },
+          hint: {
+            type: "plain_text",
+            text: "30 second summary of the problem",
           },
         },
+        {
+          block_id: "description_block",
+          type: "input",
+          label: {
+            type: "plain_text",
+            text: "Description",
+          },
+          element: {
+            action_id: "description",
+            type: "plain_text_input",
+            multiline: true,
+          },
+          optional: true,
+        },
+        {
+          block_id: "urgency_block",
+          type: "input",
+          label: {
+            type: "plain_text",
+            text: "Importance",
+          },
+          element: {
+            action_id: "urgency",
+            type: "static_select",
+            options: [
+              {
+                text: {
+                  type: "plain_text",
+                  text: "High",
+                },
+                value: "high",
+              },
+              {
+                text: {
+                  type: "plain_text",
+                  text: "Medium",
+                },
+                value: "medium",
+              },
+              {
+                text: {
+                  type: "plain_text",
+                  text: "Low",
+                },
+                value: "low",
+              },
+            ],
+          },
+          optional: true,
+        },
       ],
-    },
+    }),
   });
 }
